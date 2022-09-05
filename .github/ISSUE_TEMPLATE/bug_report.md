@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: ''
 labels: ''
-assignees: i-like-robots
+assignees: Munawwar
 
 ---
 
@@ -39,7 +39,7 @@ If applicable, add screenshots to help explain your problem.
  - OS: [e.g. Windows 10]
  - Browser: [e.g. chrome 76, safari 12]
  - Version of the component: [e.g. 5.11.2]
- - React version: [e.g. 16.12]
+ - Preact version: [e.g. 10.10]
 
 ## Additional context
 

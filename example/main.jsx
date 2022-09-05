@@ -1,6 +1,6 @@
-import React, { useCallback, useRef, useState } from 'react'
-import ReactDOM from 'react-dom'
-import ReactTags from '../lib/ReactTags'
+import { render } from 'preact'
+import { useCallback, useRef, useState } from 'preact/hooks'
+import ReactTags from '../lib/PreactTags'
 import suggestions from './countries'
 
 /**
@@ -37,7 +37,7 @@ function CountrySelector () {
   )
 }
 
-ReactDOM.render(<CountrySelector />, document.getElementById('demo-1'))
+render(<CountrySelector />, document.getElementById('demo-1'))
 
 /**
  * Demo 2 - Custom tags
@@ -82,4 +82,4 @@ function CustomTags () {
   )
 }
 
-ReactDOM.render(<CustomTags />, document.getElementById('demo-2'))
+render(<CustomTags />, document.getElementById('demo-2'))

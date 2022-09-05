@@ -1,5 +1,3 @@
-import React from 'react'
-
 function Tag (props) {
   return (
     <button type='button' className={props.classNames.selectedTag} title={props.removeButtonText} onClick={props.onDelete}>

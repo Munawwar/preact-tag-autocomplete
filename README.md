@@ -1,13 +1,10 @@
-# React Tag Autocomplete
+# Preact Tag Autocomplete
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/i-like-robots/react-tags/blob/main/LICENSE) ![build status](https://github.com/i-like-robots/react-tags/actions/workflows/test.yml/badge.svg?branch=main) [![Coverage Status](https://coveralls.io/repos/github/i-like-robots/react-tags/badge.svg?branch=main)](https://coveralls.io/github/i-like-robots/react-tags?branch=main) [![npm version](https://img.shields.io/npm/v/react-tag-autocomplete.svg?style=flat)](https://www.npmjs.com/package/react-tag-autocomplete)
+Port of [react-tag-autocomplete](https://github.com/i-like-robots/react-tag-autocomplete).
 
+Preact Tag Autocomplete is a simple tagging component ready for your Preact projects. [View demo](https://munawwar.github.io/preact-tags/).
 
-React Tag Autocomplete is a simple tagging component ready to drop in your React projects. Originally based on the [React Tags project](http://prakhar.me/react-tags/example) by Prakhar Srivastav this version removes the drag-and-drop re-ordering functionality, adds appropriate roles and ARIA states and introduces a resizing text input. [View demo](http://i-like-robots.github.io/react-tags/).
-
-![Screenshot of React Tag Autocomplete](https://cloud.githubusercontent.com/assets/271645/25478773/54aa2bbe-2b3a-11e7-95cf-d419f3c24418.png)
-
-_Please note:_ Version 7 of the component is under development, to view the upcoming version of React Tag Autocomplete please go to [the beta repository](https://github.com/i-like-robots/react-tag-autocomplete).
+![Screenshot of Preact Tag Autocomplete](https://cloud.githubusercontent.com/assets/271645/25478773/54aa2bbe-2b3a-11e7-95cf-d419f3c24418.png)
 
 ## Installation
 
@@ -16,7 +13,7 @@ This is a [Node.js] module available through the [npm] registry. Before installi
 Installation is done using the [npm install] command:
 
 ```
-npm install --save react-tag-autocomplete
+npm install --save preact-tag-autocomplete
 ```
 
 [Node.js]: https://nodejs.org/en/
@@ -28,8 +25,8 @@ npm install --save react-tag-autocomplete
 Here's a sample implementation that initializes the component with an empty list of `tags` and a pre-populated list of `suggestions`. For further customization details, see [options](#options).
 
 ```js
-import React, { useCallback, useRef, useState } from 'react'
-import ReactTags from 'react-tag-autocomplete'
+import { useCallback, useRef, useState } from 'preact/hooks'
+import PreactTags from 'preact-tag-autocomplete'
 
 function App () {
   const [tags, setTags] = useState([])
@@ -43,7 +40,7 @@ function App () {
     { id: 6, name: "Apricots" }
   ])
 
-  const reactTags = useRef()
+  const preactTags = useRef()
 
   const onDelete = useCallback((tagIndex) => {
     setTags(tags.filter((_, i) => i !== tagIndex))
@@ -54,8 +51,8 @@ function App () {
   }, [tags])
 
   return (
-    <ReactTags
-      ref={reactTags}
+    <PreactTags
+      ref={preactTags}
       tags={tags}
       suggestions={suggestions}
       onDelete={onDelete}
@@ -97,7 +94,7 @@ function App () {
 
 #### id (optional)
 
-The ID attribute given to the listbox element. Default: `ReactTags`.
+The ID attribute given to the listbox element. Default: `PreactTags`.
 
 #### tags (optional)
 
@@ -187,18 +184,18 @@ Override the default class names used by the component. Defaults to:
 
 ```js
 {
-  root: 'react-tags',
+  root: 'preact-tags',
   rootFocused: 'is-focused',
-  selected: 'react-tags__selected',
-  selectedTag: 'react-tags__selected-tag',
-  selectedTagName: 'react-tags__selected-tag-name',
-  search: 'react-tags__search',
-  searchWrapper: 'react-tags__search-wrapper',
-  searchInput: 'react-tags__search-input',
-  suggestions: 'react-tags__suggestions',
+  selected: 'preact-tags__selected',
+  selectedTag: 'preact-tags__selected-tag',
+  selectedTagName: 'preact-tags__selected-tag-name',
+  search: 'preact-tags__search',
+  searchWrapper: 'preact-tags__search-wrapper',
+  searchInput: 'preact-tags__search-input',
+  suggestions: 'preact-tags__suggestions',
   suggestionActive: 'is-active',
   suggestionDisabled: 'is-disabled',
-  suggestionPrefix: 'react-tags__suggestion-prefix'
+  suggestionPrefix: 'preact-tags__suggestion-prefix'
 }
 ```
 
@@ -338,24 +335,9 @@ It is possible to customize the appearance of the component, the included styles
 
 ### Development
 
-The component is written in ES6 and uses [Rollup](https://rollupjs.org/) as its build tool. Tests are written with [Jasmine](https://jasmine.github.io/) using [JSDOM](https://github.com/jsdom/jsdom).
+The component is written in ES6 and uses [esbuild](https://github.com/evanw/esbuild) as its build tool. Tests are written with [Jasmine](https://jasmine.github.io/) using [JSDOM](https://github.com/jsdom/jsdom).
 
 ```sh
 npm install
 npm run dev # will open http://localhost:8080 and watch files for changes
 ```
-
-### Upgrading
-
-To see all changes refer to [the changelog](CHANGELOG.md).
-
-#### Upgrading from 5.x to 6.x
-
-- React 16.5 or above is now required.
-- Event handlers and callbacks have been renamed to use `on` prefixes, e.g. the `handleAddition()` callback should now be called `onAddition()`.
-- The `delimiters` option is now an array of `KeyboardEvent.key` values and not `KeyboardEvent.keyCode` codes, e.g. `[13, 9]` should now be written as `['Enter', 'Tab']`. See https://keycode.info/ for more information.
-- The `placeholder` option has been renamed `placeholderText`
-- The `ariaLabel` option has been renamed `ariaLabelText`
-- The `delimiterChars` option has been removed, use the `delimiters` option instead.
-- The `clearInputOnDelete` option has been removed and is now the default behaviour
-- The `autofocus` option has been removed.

@@ -1,4 +1,3 @@
-import React from 'react'
 import { matchAny } from './concerns/matchers'
 
 function markIt (name, query) {

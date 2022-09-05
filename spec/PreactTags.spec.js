@@ -2,16 +2,16 @@
 
 'use strict'
 
-const React = require('react')
-const ReactDOM = require('react-dom')
-const TestUtils = require('react-dom/test-utils')
 const sinon = require('sinon')
 const { matchSorter } = require('match-sorter')
+const { createElement } = require('preact')
+const { render, fireEvent } = require('@testing-library/preact')
 
 const fixture = require('../example/countries')
-const Subject = require('../')
+const { default: Subject } = require('../dist/cjs/PreactTags')
 
 let props
+let renderInstance
 let instance
 
 function createInstance (data = {}, teardown = true) {
@@ -26,21 +26,21 @@ function createInstance (data = {}, teardown = true) {
     onFocus: sinon.stub(),
     onDelete: sinon.stub(),
     onAddition: sinon.stub(),
-    onInput: sinon.stub()
+    onInput: sinon.stub(),
+    ref: (node) => { instance = node }
   }
 
   props = Object.assign(defaults, data)
 
   // eslint-disable-next-line react/no-render-return-value
-  instance = ReactDOM.render(
-    React.createElement(Subject, props),
-    document.getElementById('app')
-  )
+  renderInstance = render(createElement(Subject, props), {
+    container: document.body.firstElementChild
+  })
 }
 
 function teardownInstance () {
-  ReactDOM.unmountComponentAtNode(document.getElementById('app'))
-  instance = null
+  renderInstance.unmount()
+  renderInstance = instance = null
 }
 
 function $ (selector) {
@@ -58,23 +58,38 @@ function type (value) {
     key(char)
     $('input').value += char
     // React calls oninput for every value change to maintain state at all times
-    TestUtils.Simulate.input($('input'))
+    fireEvent.input($('input'))
   })
 }
 
 function key () {
   Array.from(arguments).forEach((value) => {
-    TestUtils.Simulate.keyDown($('input'), { value, key: value })
+    fireEvent.keyDown($('input'), { value, key: value })
   })
 }
 
 function click (target) {
-  TestUtils.Simulate.mouseDown(target)
-  TestUtils.Simulate.mouseUp(target)
-  TestUtils.Simulate.click(target)
+  fireEvent.mouseDown(target)
+  fireEvent.mouseUp(target)
+  fireEvent.click(target)
 }
 
-describe('React Tags', () => {
+function waitForStateChange (check) {
+  return new Promise((resolve, reject) => {
+    instance.setState({ __dummy__: 1 }, () => {
+      try {
+        check()
+        resolve()
+      } catch (err) {
+        reject(err)
+      } finally {
+        instance.setState({ __dummy__: undefined })
+      }
+    })
+  })
+}
+
+describe('Preact Tags', () => {
   afterEach(() => {
     teardownInstance()
   })
@@ -85,10 +100,10 @@ describe('React Tags', () => {
     })
 
     it('renders the basic components', () => {
-      expect($('.react-tags')).toBeTruthy()
-      expect($('.react-tags__selected')).toBeTruthy()
-      expect($('.react-tags__search')).toBeTruthy()
-      expect($('.react-tags__search-input')).toBeTruthy()
+      expect($('.preact-tags')).toBeTruthy()
+      expect($('.preact-tags__selected')).toBeTruthy()
+      expect($('.preact-tags__search')).toBeTruthy()
+      expect($('.preact-tags__search-input')).toBeTruthy()
     })
   })
 
@@ -111,7 +126,7 @@ describe('React Tags', () => {
 
       expect(input.getAttribute('aria-expanded')).toEqual('true')
 
-      TestUtils.Simulate.blur(input)
+      fireEvent.blur(input)
 
       expect(input.getAttribute('aria-expanded')).toEqual('false')
     })
@@ -119,33 +134,34 @@ describe('React Tags', () => {
     it('decorates the component root when focused', () => {
       createInstance()
 
-      TestUtils.Simulate.focus($('input'))
+      fireEvent.focus($('input'))
       expect($('.is-focused')).toBeTruthy()
 
-      TestUtils.Simulate.blur($('input'))
+      fireEvent.blur($('input'))
       expect($('.is-focused')).toBeNull()
     })
 
     it('calls focus and blur callbacks when provided', () => {
       createInstance()
 
-      TestUtils.Simulate.focus($('input'))
+      fireEvent.focus($('input'))
       sinon.assert.calledOnce(props.onFocus)
 
-      TestUtils.Simulate.blur($('input'))
+      fireEvent.blur($('input'))
       sinon.assert.calledOnce(props.onBlur)
     })
 
-    it('can be cleared programmatically', () => {
+    it('can be cleared programmatically', async () => {
       createInstance()
 
       type('foo')
-
       expect(instance.state.query.length).toBe(3)
 
       instance.clearInput()
 
-      expect(instance.state.query.length).toBe(0)
+      await waitForStateChange(() => {
+        expect(instance.state.query.length).toBe(0)
+      })
     })
   })
 
@@ -206,7 +222,7 @@ describe('React Tags', () => {
 
       type(query)
 
-      TestUtils.Simulate.blur($('input'))
+      fireEvent.blur($('input'))
 
       sinon.assert.calledOnce(props.onAddition)
       sinon.assert.calledWith(props.onAddition, sinon.match({ name: query }))
@@ -245,7 +261,7 @@ describe('React Tags', () => {
 
       expect($('ul[role="listbox"]')).toBeTruthy()
 
-      TestUtils.Simulate.blur($('input'))
+      fireEvent.blur($('input'))
 
       expect($('ul[role="listbox"]')).toBeNull()
     })
@@ -441,8 +457,7 @@ describe('React Tags', () => {
 
     it('can render a custom suggestion component when provided', () => {
       const CustomSuggestion = ({ item, query }) => (
-        React.createElement(
-          'div', { className: 'custom-suggestion' }, item.name)
+        createElement('div', { className: 'custom-suggestion' }, item.name)
       )
 
       createInstance({
@@ -471,7 +486,7 @@ describe('React Tags', () => {
       expect(lastSuggestion.textContent).toEqual('Create tag: united')
     })
 
-    it('updates suggestions when top-level prop changes', () => {
+    it('updates suggestions when top-level prop changes', async () => {
       createInstance({
         tags: [],
         suggestions: fixture
@@ -494,7 +509,7 @@ describe('React Tags', () => {
       })
 
       it('shows suggestions list when the input is focused', () => {
-        TestUtils.Simulate.focus($('input'))
+        fireEvent.focus($('input'))
         expect($('ul[role="listbox"]')).toBeTruthy()
       })
 
@@ -509,14 +524,16 @@ describe('React Tags', () => {
       })
     })
 
-    it('selected suggestion can be cleared programmatically', () => {
+    it('selected suggestion can be cleared programmatically', async () => {
       type('french'); key('ArrowDown', 'ArrowDown')
 
       expect(instance.state.index).toBe(1)
 
       instance.clearSelectedIndex()
 
-      expect(instance.state.index).toBe(-1)
+      await waitForStateChange(() => {
+        expect(instance.state.index).toBe(-1)
+      })
     })
   })
 
@@ -526,18 +543,18 @@ describe('React Tags', () => {
     })
 
     it('renders selected tags', () => {
-      expect($$('.react-tags__selected-tag').length).toEqual(instance.props.tags.length)
+      expect($$('.preact-tags__selected-tag').length).toEqual(instance.props.tags.length)
     })
 
     it('triggers removal when a tag is clicked', () => {
-      click($('.react-tags__selected-tag'))
+      click($('.preact-tags__selected-tag'))
 
       sinon.assert.calledOnce(props.onDelete)
       sinon.assert.calledWith(props.onDelete, sinon.match(0))
     })
 
     it('moves focus to the input when a tag is removed', () => {
-      click($('.react-tags__selected-tag'))
+      click($('.preact-tags__selected-tag'))
       expect(document.activeElement).toEqual($('input'))
     })
 
@@ -566,7 +583,7 @@ describe('React Tags', () => {
 
     it('can render a custom tag component when provided', () => {
       const Tag = (props) => (
-        React.createElement('button', { className: 'custom-tag' }, props.tag.name)
+        createElement('button', { className: 'custom-tag' }, props.tag.name)
       )
 
       createInstance({

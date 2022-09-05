@@ -1,4 +1,4 @@
-import React from 'react'
+import { Component, createRef } from 'preact'
 
 const SIZER_STYLES = {
   position: 'absolute',
@@ -18,13 +18,13 @@ const STYLE_PROPS = [
   'textTransform'
 ]
 
-class Input extends React.Component {
+class Input extends Component {
   constructor (props) {
     super(props)
     this.state = { inputWidth: null }
 
-    this.input = React.createRef()
-    this.sizer = React.createRef()
+    this.input = createRef()
+    this.sizer = createRef()
   }
 
   componentDidMount () {

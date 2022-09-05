@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { Component, createRef } from 'preact'
 import Tag from './Tag'
 import Input from './Input'
 import Suggestions from './Suggestions'
@@ -17,18 +16,18 @@ const KEYS = {
 }
 
 const CLASS_NAMES = {
-  root: 'react-tags',
+  root: 'preact-tags',
   rootFocused: 'is-focused',
-  selected: 'react-tags__selected',
-  selectedTag: 'react-tags__selected-tag',
-  selectedTagName: 'react-tags__selected-tag-name',
-  search: 'react-tags__search',
-  searchWrapper: 'react-tags__search-wrapper',
-  searchInput: 'react-tags__search-input',
-  suggestions: 'react-tags__suggestions',
+  selected: 'preact-tags__selected',
+  selectedTag: 'preact-tags__selected-tag',
+  selectedTagName: 'preact-tags__selected-tag-name',
+  search: 'preact-tags__search',
+  searchWrapper: 'preact-tags__search-wrapper',
+  searchInput: 'preact-tags__search-input',
+  suggestions: 'preact-tags__suggestions',
   suggestionActive: 'is-active',
   suggestionDisabled: 'is-disabled',
-  suggestionPrefix: 'react-tags__suggestion-prefix'
+  suggestionPrefix: 'preact-tags__suggestion-prefix'
 }
 
 function findMatchIndex (options, query) {
@@ -98,7 +97,7 @@ function getOptions (props, state) {
   return options
 }
 
-class ReactTags extends React.Component {
+class PreactTags extends Component {
   constructor (props) {
     super(props)
 
@@ -109,18 +108,14 @@ class ReactTags extends React.Component {
     }
 
     this.inputEventHandlers = {
-      // Provide a no-op function to the input component to avoid warnings
-      // <https://github.com/i-like-robots/react-tags/issues/135>
-      // <https://github.com/facebook/react/issues/13835>
-      onChange: () => {},
       onBlur: this.onBlur.bind(this),
       onFocus: this.onFocus.bind(this),
       onInput: this.onInput.bind(this),
       onKeyDown: this.onKeyDown.bind(this)
     }
 
-    this.container = React.createRef()
-    this.input = React.createRef()
+    this.container = createRef()
+    this.input = createRef()
   }
 
   onInput (e) {
@@ -306,8 +301,8 @@ class ReactTags extends React.Component {
   }
 }
 
-ReactTags.defaultProps = {
-  id: 'ReactTags',
+PreactTags.defaultProps = {
+  id: 'PreactTags',
   tags: [],
   placeholderText: 'Add new tag',
   removeButtonText: 'Click to remove tag',
@@ -329,40 +324,4 @@ ReactTags.defaultProps = {
   inputAttributes: {}
 }
 
-ReactTags.propTypes = {
-  id: PropTypes.string,
-  tags: PropTypes.arrayOf(PropTypes.object),
-  placeholderText: PropTypes.string,
-  ariaLabelText: PropTypes.string,
-  removeButtonText: PropTypes.string,
-  noSuggestionsText: PropTypes.string,
-  newTagText: PropTypes.string,
-  suggestions: PropTypes.arrayOf(PropTypes.object),
-  suggestionsFilter: PropTypes.func,
-  suggestionsTransform: PropTypes.func,
-  autoresize: PropTypes.bool,
-  delimiters: PropTypes.arrayOf(PropTypes.string),
-  onDelete: PropTypes.func.isRequired,
-  onAddition: PropTypes.func.isRequired,
-  onInput: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onValidate: PropTypes.func,
-  minQueryLength: PropTypes.number,
-  maxSuggestionsLength: PropTypes.number,
-  classNames: PropTypes.object,
-  allowNew: PropTypes.bool,
-  allowBackspace: PropTypes.bool,
-  addOnBlur: PropTypes.bool,
-  tagComponent: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.element
-  ]),
-  suggestionComponent: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.element
-  ]),
-  inputAttributes: PropTypes.object
-}
-
-export default ReactTags
+export default PreactTags

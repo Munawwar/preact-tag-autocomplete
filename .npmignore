@@ -8,4 +8,4 @@ spec/
 .DS_Store
 .editorconfig
 gh-pages.sh
-rollup.config.js
+package-lock.json
