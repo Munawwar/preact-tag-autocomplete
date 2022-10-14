@@ -1,6 +1,6 @@
 {
   "name": "preact-tag-autocomplete",
-  "version": "6.3.0",
+  "version": "6.3.1",
   "description": "Simple tagging component for Preact projects",
   "main": "dist/cjs/PreactTagAutocomplete.js",
   "module": "dist/esm/PreactTagAutocomplete.js",

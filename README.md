@@ -2,7 +2,7 @@
 
 Port of [react-tag-autocomplete](https://github.com/i-like-robots/react-tags).
 
-Preact Tag Autocomplete is a simple tagging component ready for your Preact projects. [View demo](https://munawwar.github.io/preact-tag-autocomplete/).
+Preact Tag Autocomplete is a simple tagging component ready for your Preact projects. [View demo](https://munawwar.github.io/preact-tag-autocomplete/example/).
 
 ![Screenshot of Preact Tag Autocomplete](https://cloud.githubusercontent.com/assets/271645/25478773/54aa2bbe-2b3a-11e7-95cf-d419f3c24418.png)
 
