@@ -1,7 +1,7 @@
 import { Component, JSX } from 'preact';
 
 export type Item = { id: number, name: string };
-export type PreactTagsProps = {
+export type PreactTagAutocompleteProps = {
   onDelete: (tagIndex: number) => void,
   onAddition: (newTag: Item) => void,
 
@@ -24,18 +24,18 @@ export type PreactTagsProps = {
   minQueryLength?: number,
   maxSuggestionsLength?: number,
   classNames?: {
-    root: string = 'preact-tags',
+    root: string = 'preact-tag-ac',
     rootFocused: string = 'is-focused',
-    selected: string = 'preact-tags__selected',
-    selectedTag: string = 'preact-tags__selected-tag',
-    selectedTagName: string = 'preact-tags__selected-tag-name',
-    search: string = 'preact-tags__search',
-    searchWrapper: string = 'preact-tags__search-wrapper',
-    searchInput: string = 'preact-tags__search-input',
-    suggestions: string = 'preact-tags__suggestions',
+    selected: string = 'preact-tag-ac__selected',
+    selectedTag: string = 'preact-tag-ac__selected-tag',
+    selectedTagName: string = 'preact-tag-ac__selected-tag-name',
+    search: string = 'preact-tag-ac__search',
+    searchWrapper: string = 'preact-tag-ac__search-wrapper',
+    searchInput: string = 'preact-tag-ac__search-input',
+    suggestions: string = 'preact-tag-ac__suggestions',
     suggestionActive: string = 'is-active',
     suggestionDisabled: string = 'is-disabled',
-    suggestionPrefix: string = 'preact-tags__suggestion-prefix'
+    suggestionPrefix: string = 'preact-tag-ac__suggestion-prefix'
   },
   allowNew?: bool = true,
   allowBackspace?: bool,
@@ -47,10 +47,10 @@ export type PreactTagsProps = {
   }
 }
 
-type PreactTagsStates = {
+type PreactTagAutocompleteStates = {
   query: string,
   focused: boolean,
   index: number
 }
 
-export default class PreactTags extends Component<PreactTagsProps, PreactTagsStates> {};
+export default class PreactTagAutocomplete extends Component<PreactTagAutocompleteProps, PreactTagAutocompleteStates> {};

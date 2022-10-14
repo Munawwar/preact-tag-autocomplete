@@ -1,16 +1,16 @@
 /**
- * <div class="preact-tags">
- *   <div class="preact-tags__selected">
- *     <button class="preact-tags__selected-tag">
- *       <span class="preact-tags__selected-tag-name" />
+ * <div class="preact-tag-ac">
+ *   <div class="preact-tag-ac__selected">
+ *     <button class="preact-tag-ac__selected-tag">
+ *       <span class="preact-tag-ac__selected-tag-name" />
  *     </button>
  *   </div>
- *   <div class="preact-tags__search">
- *     <div class="preact-tags__search-wrapper">
- *       <input class="preact-tags__search-input" />
+ *   <div class="preact-tag-ac__search">
+ *     <div class="preact-tag-ac__search-wrapper">
+ *       <input class="preact-tag-ac__search-input" />
  *       <div />
  *     </div>
- *     <div class="preact-tags__suggestions">
+ *     <div class="preact-tag-ac__suggestions">
  *       <ul>
  *         <li class="is-active">
  *           <mark />
@@ -22,7 +22,7 @@
  *     </div>
  *   </div>
  */
-.preact-tags {
+.preact-tag-ac {
   position: relative;
   padding: 6px 0 0 6px;
   border: 1px solid #D1D1D1;
@@ -36,15 +36,15 @@
   cursor: text;
 }
 
-.preact-tags.is-focused {
+.preact-tag-ac.is-focused {
   border-color: #B1B1B1;
 }
 
-.preact-tags__selected {
+.preact-tag-ac__selected {
   display: inline;
 }
 
-.preact-tags__selected-tag {
+.preact-tag-ac__selected-tag {
   display: inline-block;
   box-sizing: border-box;
   margin: 0 6px 6px 0;
@@ -58,18 +58,18 @@
   line-height: inherit;
 }
 
-.preact-tags__selected-tag:after {
+.preact-tag-ac__selected-tag:after {
   content: '\2715';
   color: #AAA;
   margin-left: 8px;
 }
 
-.preact-tags__selected-tag:hover,
-.preact-tags__selected-tag:focus {
+.preact-tag-ac__selected-tag:hover,
+.preact-tag-ac__selected-tag:focus {
   border-color: #B1B1B1;
 }
 
-.preact-tags__search {
+.preact-tag-ac__search {
   display: inline-block;
 
   /* match tag layout */
@@ -82,14 +82,14 @@
 
 @media screen and (min-width: 30em) {
 
-  .preact-tags__search {
+  .preact-tag-ac__search {
     /* this will become the offsetParent for suggestions */
     position: relative;
   }
 
 }
 
-.preact-tags__search-input {
+.preact-tag-ac__search-input {
   /* prevent autoresize overflowing the container */
   max-width: 100%;
 
@@ -104,11 +104,11 @@
   line-height: inherit;
 }
 
-.preact-tags__search-input::-ms-clear {
+.preact-tag-ac__search-input::-ms-clear {
   display: none;
 }
 
-.preact-tags__suggestions {
+.preact-tag-ac__suggestions {
   position: absolute;
   top: 100%;
   left: 0;
@@ -117,13 +117,13 @@
 
 @media screen and (min-width: 30em) {
 
-  .preact-tags__suggestions {
+  .preact-tag-ac__suggestions {
     width: 240px;
   }
 
 }
 
-.preact-tags__suggestions ul {
+.preact-tag-ac__suggestions ul {
   margin: 4px -1px;
   padding: 0;
   list-style: none;
@@ -133,27 +133,27 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.preact-tags__suggestions li {
+.preact-tag-ac__suggestions li {
   border-bottom: 1px solid #ddd;
   padding: 6px 8px;
 }
 
-.preact-tags__suggestions li mark {
+.preact-tag-ac__suggestions li mark {
   text-decoration: underline;
   background: none;
   font-weight: 600;
 }
 
-.preact-tags__suggestions li:hover {
+.preact-tag-ac__suggestions li:hover {
   cursor: pointer;
   background: #eee;
 }
 
-.preact-tags__suggestions li.is-active {
+.preact-tag-ac__suggestions li.is-active {
   background: #b7cfe0;
 }
 
-.preact-tags__suggestions li.is-disabled {
+.preact-tag-ac__suggestions li.is-disabled {
   opacity: 0.5;
   cursor: auto;
 }

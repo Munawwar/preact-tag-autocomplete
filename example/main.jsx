@@ -1,6 +1,6 @@
 import { render } from 'preact'
 import { useCallback, useRef, useState } from 'preact/hooks'
-import ReactTags from '../lib/PreactTags'
+import PreactTagAutocomplete from '../lib/PreactTagAutocomplete'
 import suggestions from './countries'
 
 /**
@@ -10,7 +10,7 @@ import suggestions from './countries'
 function CountrySelector () {
   const [tags, setTags] = useState([])
 
-  const reactTags = useRef()
+  const ref = useRef()
 
   const onDelete = useCallback((tagIndex) => {
     setTags(tags.filter((_, i) => i !== tagIndex))
@@ -23,8 +23,8 @@ function CountrySelector () {
   return (
     <>
       <p>Select the countries you have visited below:</p>
-      <ReactTags
-        ref={reactTags}
+      <PreactTagAutocomplete
+        ref={ref}
         tags={tags}
         suggestions={suggestions}
         noSuggestionsText='No matching countries'
@@ -46,7 +46,7 @@ render(<CountrySelector />, document.getElementById('demo-1'))
 function CustomTags () {
   const [tags, setTags] = useState([])
 
-  const reactTags = useRef()
+  const ref = useRef()
 
   const onDelete = useCallback((tagIndex) => {
     setTags(tags.filter((_, i) => i !== tagIndex))
@@ -63,10 +63,10 @@ function CustomTags () {
   return (
     <>
       <p>Enter new tags meeting the requirements below:</p>
-      <ReactTags
+      <PreactTagAutocomplete
         allowNew
         newTagText='Create new tag:'
-        ref={reactTags}
+        ref={ref}
         tags={tags}
         suggestions={[]}
         onDelete={onDelete}

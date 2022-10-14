@@ -8,7 +8,7 @@ const { createElement } = require('preact')
 const { render, fireEvent } = require('@testing-library/preact')
 
 const fixture = require('../example/countries')
-const { default: Subject } = require('../dist/cjs/PreactTags')
+const { default: Subject } = require('../dist/cjs/PreactTagAutocomplete')
 
 let props
 let renderInstance
@@ -89,7 +89,7 @@ function waitForStateChange (check) {
   })
 }
 
-describe('Preact Tags', () => {
+describe('Preact Tag Autocomplete', () => {
   afterEach(() => {
     teardownInstance()
   })
@@ -100,10 +100,10 @@ describe('Preact Tags', () => {
     })
 
     it('renders the basic components', () => {
-      expect($('.preact-tags')).toBeTruthy()
-      expect($('.preact-tags__selected')).toBeTruthy()
-      expect($('.preact-tags__search')).toBeTruthy()
-      expect($('.preact-tags__search-input')).toBeTruthy()
+      expect($('.preact-tag-ac')).toBeTruthy()
+      expect($('.preact-tag-ac__selected')).toBeTruthy()
+      expect($('.preact-tag-ac__search')).toBeTruthy()
+      expect($('.preact-tag-ac__search-input')).toBeTruthy()
     })
   })
 
@@ -543,18 +543,18 @@ describe('Preact Tags', () => {
     })
 
     it('renders selected tags', () => {
-      expect($$('.preact-tags__selected-tag').length).toEqual(instance.props.tags.length)
+      expect($$('.preact-tag-ac__selected-tag').length).toEqual(instance.props.tags.length)
     })
 
     it('triggers removal when a tag is clicked', () => {
-      click($('.preact-tags__selected-tag'))
+      click($('.preact-tag-ac__selected-tag'))
 
       sinon.assert.calledOnce(props.onDelete)
       sinon.assert.calledWith(props.onDelete, sinon.match(0))
     })
 
     it('moves focus to the input when a tag is removed', () => {
-      click($('.preact-tags__selected-tag'))
+      click($('.preact-tag-ac__selected-tag'))
       expect(document.activeElement).toEqual($('input'))
     })
 

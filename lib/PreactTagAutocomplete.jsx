@@ -16,18 +16,18 @@ const KEYS = {
 }
 
 const CLASS_NAMES = {
-  root: 'preact-tags',
+  root: 'preact-tag-ac',
   rootFocused: 'is-focused',
-  selected: 'preact-tags__selected',
-  selectedTag: 'preact-tags__selected-tag',
-  selectedTagName: 'preact-tags__selected-tag-name',
-  search: 'preact-tags__search',
-  searchWrapper: 'preact-tags__search-wrapper',
-  searchInput: 'preact-tags__search-input',
-  suggestions: 'preact-tags__suggestions',
+  selected: 'preact-tag-ac__selected',
+  selectedTag: 'preact-tag-ac__selected-tag',
+  selectedTagName: 'preact-tag-ac__selected-tag-name',
+  search: 'preact-tag-ac__search',
+  searchWrapper: 'preact-tag-ac__search-wrapper',
+  searchInput: 'preact-tag-ac__search-input',
+  suggestions: 'preact-tag-ac__suggestions',
   suggestionActive: 'is-active',
   suggestionDisabled: 'is-disabled',
-  suggestionPrefix: 'preact-tags__suggestion-prefix'
+  suggestionPrefix: 'preact-tag-ac__suggestion-prefix'
 }
 
 function findMatchIndex (options, query) {
@@ -97,7 +97,7 @@ function getOptions (props, state) {
   return options
 }
 
-class PreactTags extends Component {
+class PreactTagAutocomplete extends Component {
   constructor (props) {
     super(props)
 
@@ -301,8 +301,8 @@ class PreactTags extends Component {
   }
 }
 
-PreactTags.defaultProps = {
-  id: 'PreactTags',
+PreactTagAutocomplete.defaultProps = {
+  id: 'PreactTagAutocomplete',
   tags: [],
   placeholderText: 'Add new tag',
   removeButtonText: 'Click to remove tag',
@@ -324,4 +324,4 @@ PreactTags.defaultProps = {
   inputAttributes: {}
 }
 
-export default PreactTags
+export default PreactTagAutocomplete

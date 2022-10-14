@@ -2,8 +2,8 @@
   "name": "preact-tag-autocomplete",
   "version": "6.3.0",
   "description": "Simple tagging component for Preact projects",
-  "main": "dist/cjs/PreactTags.js",
-  "module": "dist/esm/PreactTags.js",
+  "main": "dist/cjs/PreactTagAutocomplete.js",
+  "module": "dist/esm/PreactTagAutocomplete.js",
   "scripts": {
     "prepare": "npm run build",
     "prepublish": "npm run build",
@@ -12,10 +12,10 @@
     "lint-fix": "standard lib/*.jsx lib/**/*.js spec/*.js --fix",
     "test": "jasmine",
     "coverage": "nyc --include 'dist/**' npm test",
-    "dev": "esbuild ./lib/*.jsx ./lib/**/*.js --outdir=dist/esm --format=esm --jsx-import-source=preact --jsx=automatic --jsx-factory=h --jsx-fragment=Fragment --watch && cp lib/PreactTags.d.ts dist/esm/",
+    "dev": "esbuild ./lib/*.jsx ./lib/**/*.js --outdir=dist/esm --format=esm --jsx-import-source=preact --jsx=automatic --jsx-factory=h --jsx-fragment=Fragment --watch && cp lib/PreactTagAutocomplete.d.ts dist/esm/",
     "example": "esbuild example/main.jsx --outfile=example/bundle.js --bundle --jsx-import-source=preact --jsx=automatic --jsx-factory=h --jsx-fragment=Fragment && browser-sync start --server --files './example/bundle.js' --startPath=example",
     "example-build": "esbuild example/main.jsx --outfile=example/bundle.js --bundle --jsx-import-source=preact --jsx=automatic --jsx-factory=h --jsx-fragment=Fragment --watch",
-    "build": "rm -fr dist && esbuild ./lib/*.jsx ./lib/**/*.js --outdir=dist/esm --format=esm --jsx-import-source=preact --jsx=automatic --jsx-factory=h --jsx-fragment=Fragment && esbuild ./lib/*.jsx ./lib/**/*.js --outdir=dist/cjs --format=cjs --jsx-import-source=preact --jsx=automatic --jsx-factory=h --jsx-fragment=Fragment && cp lib/PreactTags.d.ts dist/cjs/ && cp lib/PreactTags.d.ts dist/esm/"
+    "build": "rm -fr dist && esbuild ./lib/*.jsx ./lib/**/*.js --outdir=dist/esm --format=esm --jsx-import-source=preact --jsx=automatic --jsx-factory=h --jsx-fragment=Fragment && esbuild ./lib/*.jsx ./lib/**/*.js --outdir=dist/cjs --format=cjs --jsx-import-source=preact --jsx=automatic --jsx-factory=h --jsx-fragment=Fragment && cp lib/PreactTagAutocomplete.d.ts dist/cjs/ && cp lib/PreactTagAutocomplete.d.ts dist/esm/"
   },
   "keywords": [
     "preact",
@@ -45,7 +45,7 @@
     "Joel Posti"
   ],
   "license": "MIT",
-  "repository": "https://github.com/Munawwar/preact-tags",
+  "repository": "https://github.com/Munawwar/preact-tag-autocomplete",
   "peerDependencies": {
     "preact": ">=8"
   },

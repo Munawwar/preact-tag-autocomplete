@@ -1,8 +1,8 @@
 # Preact Tag Autocomplete
 
-Port of [react-tag-autocomplete](https://github.com/i-like-robots/react-tag-autocomplete).
+Port of [react-tag-autocomplete](https://github.com/i-like-robots/react-tags).
 
-Preact Tag Autocomplete is a simple tagging component ready for your Preact projects. [View demo](https://munawwar.github.io/preact-tags/).
+Preact Tag Autocomplete is a simple tagging component ready for your Preact projects. [View demo](https://munawwar.github.io/preact-tag-autocomplete/).
 
 ![Screenshot of Preact Tag Autocomplete](https://cloud.githubusercontent.com/assets/271645/25478773/54aa2bbe-2b3a-11e7-95cf-d419f3c24418.png)
 
@@ -26,7 +26,7 @@ Here's a sample implementation that initializes the component with an empty list
 
 ```js
 import { useCallback, useRef, useState } from 'preact/hooks'
-import PreactTags from 'preact-tag-autocomplete'
+import PreactTagAutocomplete from 'preact-tag-autocomplete'
 
 function App () {
   const [tags, setTags] = useState([])
@@ -40,7 +40,7 @@ function App () {
     { id: 6, name: "Apricots" }
   ])
 
-  const preactTags = useRef()
+  const ref = useRef()
 
   const onDelete = useCallback((tagIndex) => {
     setTags(tags.filter((_, i) => i !== tagIndex))
@@ -51,8 +51,8 @@ function App () {
   }, [tags])
 
   return (
-    <PreactTags
-      ref={preactTags}
+    <PreactTagAutocomplete
+      ref={ref}
       tags={tags}
       suggestions={suggestions}
       onDelete={onDelete}
@@ -94,7 +94,7 @@ function App () {
 
 #### id (optional)
 
-The ID attribute given to the listbox element. Default: `PreactTags`.
+The ID attribute given to the listbox element. Default: `PreactTagAutocomplete`.
 
 #### tags (optional)
 
@@ -184,18 +184,18 @@ Override the default class names used by the component. Defaults to:
 
 ```js
 {
-  root: 'preact-tags',
+  root: 'preact-tag-ac',
   rootFocused: 'is-focused',
-  selected: 'preact-tags__selected',
-  selectedTag: 'preact-tags__selected-tag',
-  selectedTagName: 'preact-tags__selected-tag-name',
-  search: 'preact-tags__search',
-  searchWrapper: 'preact-tags__search-wrapper',
-  searchInput: 'preact-tags__search-input',
-  suggestions: 'preact-tags__suggestions',
+  selected: 'preact-tag-ac__selected',
+  selectedTag: 'preact-tag-ac__selected-tag',
+  selectedTagName: 'preact-tag-ac__selected-tag-name',
+  search: 'preact-tag-ac__search',
+  searchWrapper: 'preact-tag-ac__search-wrapper',
+  searchInput: 'preact-tag-ac__search-input',
+  suggestions: 'preact-tag-ac__suggestions',
   suggestionActive: 'is-active',
   suggestionDisabled: 'is-disabled',
-  suggestionPrefix: 'preact-tags__suggestion-prefix'
+  suggestionPrefix: 'preact-tag-ac__suggestion-prefix'
 }
 ```
 
