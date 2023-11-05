@@ -172,7 +172,7 @@ Array of keys matching `KeyboardEvent.key` values. When a corresponding key is p
 
 #### minQueryLength (optional)
 
-Minimum query length required to show the suggestions list. Defaults to `2`.
+Minimum query length required to show the suggestions list. Defaults to `0`.
 
 #### maxSuggestionsLength (optional)
 

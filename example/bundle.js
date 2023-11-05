@@ -884,7 +884,7 @@
     autoresize: true,
     classNames: CLASS_NAMES,
     delimiters: [KEYS.TAB, KEYS.ENTER],
-    minQueryLength: 2,
+    minQueryLength: 0,
     maxSuggestionsLength: 6,
     allowNew: false,
     allowBackspace: true,
